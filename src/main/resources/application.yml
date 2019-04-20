@@ -2,7 +2,7 @@
 # |         SERVER CONFIG
 # +-----------------------------------------------------
 server:
-  port: 8889
+  port: 8081
   servlet:
     context-path: /laboratorio
     session:

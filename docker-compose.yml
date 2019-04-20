@@ -1,0 +1,94 @@
+# --------------------------------------------------------------
+# - DOCKER COMPOSE FILE
+# - AUTOR: Wilman Alberto Ortiz Navarro
+# - FECHA: 15-Abril-2019
+# - DESCRIPCION: Docker compose file que permite la
+# -              creacion de 2 contendores con el micro
+# -              servicio de customer y crea un tercr
+# -              contenedor con HAPROXY para balanceo de carga
+# --------------------------------------------------------------
+
+version: '3.7'
+services:
+  db:
+    container_name: server-mysql-lab
+    image: mysql
+    hostname: db
+    environment:
+      MYSQL_ROOT_PASSWORD: 'mysql'
+      MYSQL_DATABASE: 'online_market'
+      MYSQL_USER: 'wortiz'
+      MYSQL_PASSWORD: 'admin123'
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./src/main/resources/databases/mysql/mysql-schema-v0.1.sql:/docker-entrypoint-initdb.d/mysql-schema-v0.1.sql
+      - ./src/main/resources/databases/mysql/mysql-data-v0.1.sql:/docker-entrypoint-initdb.d/mysql-sdata-v0.1.sql
+    networks:
+      - web
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  microservice1:
+    image: customer-service:latest
+    container_name: customer-service-1
+    hostname: microservice1
+    restart: always
+    ports:
+      - '8887:8081'
+    networks:
+      - web
+    depends_on:
+      - db
+    environment:
+      - SERVICE_PORTS=8081
+      - SPRING_PROFILES_ACTIVE=qa
+      - DATABASE_HOST=db
+      - DATABASE_USER=wortiz
+      - DATABASE_PASSWORD=admin123
+      - DATABASE_NAME=online_market
+      - DATABASE_PORT=3306
+  microservice2:
+    image: customer-service:latest
+    container_name: customer-service-2
+    hostname: microservice2
+    restart: always
+    ports:
+      - '8888:8081'
+    networks:
+      - web
+    depends_on:
+      - db
+    environment:
+      - SERVICE_PORTS=8081
+      - SPRING_PROFILES_ACTIVE=qa
+      - DATABASE_HOST=db
+      - DATABASE_USER=wortiz
+      - DATABASE_PASSWORD=admin123
+      - DATABASE_NAME=online_market
+      - DATABASE_PORT=3306
+  nginx:
+    container_name: server-nginx
+    image: nginx
+    hostname: server-nginx
+    restart: always
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+    depends_on:
+      - microservice1
+      - microservice2
+    links:
+      - microservice1
+      - microservice2
+    networks:
+      - web
+
+volumes:
+  my-db:
+networks:
+  web:
+    driver: bridge

@@ -24,7 +24,7 @@ spring:
     password: admin123
     platform: mysql
     initialization-mode: always
-    #data: classpath:databases/mysql/data-mysql-v0.1.sql
+    #data: classpath:databases/mysql/mysql-data-v0.1.sql
     hikari:
       initialization-fail-timeout: 0
       data-source-properties:

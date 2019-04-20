@@ -24,7 +24,7 @@ USE `online_market`;
 -- -----------------------------------------------------
 -- Create Table online_market.customer
 -- -----------------------------------------------------
-CREATE TABLE `online_market`.`customer` ( 
+CREATE TABLE IF NOT EXISTS `online_market`.`customer` (
    `id`      INT NOT NULL, 
    `fname`   VARCHAR(50) NOT NULL, 
    `lname`   VARCHAR(50) NOT NULL, 
