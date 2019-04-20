@@ -1,0 +1,17 @@
+# +-----------------------------------------------------
+# |         SPRING DATASOURCE CONFIG H2 DB
+# +-----------------------------------------------------
+spring:
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:customer;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    #username: admin
+    #password: admin123
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+        hbm2ddl:
+          auto: create
+        show-sql: true

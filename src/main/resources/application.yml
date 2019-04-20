@@ -1,0 +1,48 @@
+# +-----------------------------------------------------
+# |         SERVER CONFIG
+# +-----------------------------------------------------
+server:
+  port: 8889
+  servlet:
+    context-path: /laboratorio
+    session:
+      cookie:
+        name: UISESSION
+
+# +-----------------------------------------------------
+# |         SPRING CONFIG
+# +-----------------------------------------------------
+spring:
+  main:
+    banner-mode: "off"
+  application:
+    name: laboratorio
+  profiles:
+    active: "@profile@"
+  h2:
+    console:
+      enable: false
+      path: /h2
+# +-----------------------------------------------------
+# |         JAVA MELODY CONFIG
+# +-----------------------------------------------------
+javamelody:
+  spring-monitoring-enabled: true
+  advisor-auto-proxy-creator-enabled: false
+  scheduled-monitoring-enabled: true
+  init-parameters:
+    log: true
+    monitoring-path: /admin/performance
+
+# +-----------------------------------------------------
+# |         SPRING LOGGIN CONFIG
+# +-----------------------------------------------------
+logging:
+  level:
+    org.springframework.web: DEBUG
+    org.springframework.data: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+  pattern:
+    console: "%d{yyyy-MMM-dd HH:mm:ss a} [%t] %-5level %logger{36} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

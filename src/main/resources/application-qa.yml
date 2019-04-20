@@ -1,0 +1,46 @@
+# +-----------------------------------------------------
+# |         SPRING DATASOURCE CONFIG MYSQL DB
+# +-----------------------------------------------------
+spring:
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database: MYSQL
+    open-in-view: false
+    generate-ddl: false
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    properties:
+      hibernate:
+        cache:
+          use_second_level_cache: false
+          use_query_cache: false
+        generate_statistic: true
+        naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+  datasource:
+    url: jdbc:mysql://db:3306/online_market?allowPublicKeyRetrieval=true&useSSL=false&autoReconnect=true&failOverReadOnly=false&maxReconnects=10
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: wortiz
+    password: admin123
+    platform: mysql
+    initialization-mode: always
+    data: classpath:databases/mysql/data-mysql-v0.1.sql
+    hikari:
+      initialization-fail-timeout: 0
+      data-source-properties:
+        cachePrepStmts: true
+        useServerPrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useLocalSessionState: true
+        useLocalTransactionState: true
+        rewriteBatchedStatements: true
+        cacheResultSetMetadata: true
+        cacheServerConfiguration: true
+        elideSetAutoCommits: true
+        maintainTimeStats: false
+      pool-name: customerPoolConetion
+      connection-timeout: 60000
+      maximum-pool-size: 5
+  jmx:
+    default-domain: startertest
