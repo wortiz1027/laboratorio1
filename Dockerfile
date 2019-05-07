@@ -16,18 +16,27 @@ FROM openjdk:8-jdk-alpine
 ARG JAR_FILE=laboratorio1-0.0.1-SNAPSHOT.jar
 ARG BUILD_DATE
 ARG BUILD_VERSION
+ARG BUILD_REVISION
 
-ENV APP_HOME="/app"
-# Asignar JVM options (https://www.oracle.com/technetwork/java/javase/tech/vmoptions-jsp-140102.html)
-ENV JAVA_OPTS=""
+ENV APP_HOME="/app" \
+    JAVA_OPTS="" \
+	HTTP_PORT=8443
 
 # Informacion de la persona que mantiene la imagen
-LABEL maintainer="willman.ortiz@gmail.com" \
-      version=$BUILD_VERSION \
-      build-date=$BUILD_DATE
+LABEL org.opencontainers.image.created=$BUILD_DATE \
+	  org.opencontainers.image.authors="Wilman Ortiz Navarro <$EMAIL>" \
+	  org.opencontainers.image.url="https://gitlab.com/wortiz1027/laboratorio1/blob/develop/Dockerfile" \
+	  org.opencontainers.image.documentation="" \
+	  org.opencontainers.image.source="https://gitlab.com/wortiz1027/laboratorio1/blob/develop/Dockerfile" \
+	  org.opencontainers.image.version=$BUILD_VERSION \
+	  org.opencontainers.image.revision=$BUILD_REVISION \
+	  org.opencontainers.image.vendor="developer.io" \
+	  org.opencontainers.image.licenses="" \
+	  org.opencontainers.image.title="Management Customer MicroService" \
+	  org.opencontainers.image.description="Imagen docker con ubuntu como base para instalar nginx web server y configurarlo con https"
 
 # Puerto de exposicion del servicio
-EXPOSE 8081
+EXPOSE $HTTP_PORT
 
 # Creando directorio de la aplicacion
 RUN mkdir $APP_HOME && \
@@ -37,18 +46,14 @@ RUN mkdir $APP_HOME && \
 RUN apk add --update bash && rm -rf /var/cache/apk/*
 
 # Volumen para el intercambio de archivos con el sistema host
-VOLUME $APP_HOME/log
-VOLUME $APP_HOME/config
+VOLUME $APP_HOME/log \
+	   $APP_HOME/config
 
 # Seteando el workspace
 WORKDIR $APP_HOME
 
 # Creando un archivo en el contenedor
-#ADD wait-for-it.sh $APP_HOME/config
 ADD ./target/$JAR_FILE $APP_HOME/customer-service.jar
 
-#RUN echo "direct $APP_HOME/customer-service.jar"
-
 # Ejecutanto el microservicio en el contenedor
-#ENTRYPOINT [ "java","-Djava.security.egd=file:/dev/./urandom","-jar","$APP_HOME/customer-service.jar" ]
 ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -Dspring.profiles.active=qa -jar ${APP_HOME}/customer-service.jar" ]

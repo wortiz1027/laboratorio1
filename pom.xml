@@ -257,9 +257,22 @@
 
     <build>
         <resources>
+            <!--
+                Para evitar que maven copie mal el keystore y genere error al iniciar la springboot app
+            -->
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>**/*.p12</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>**/*.p12</include>
+                </includes>
             </resource>
         </resources>
 

@@ -2,12 +2,19 @@
 # |         SERVER CONFIG
 # +-----------------------------------------------------
 server:
-  port: 8081
+  port: 8443
   servlet:
     context-path: /laboratorio
     session:
       cookie:
         name: UISESSION
+  ssl:
+    enabled: true
+    key-store-type: PKCS12
+    key-store: classpath:ssl/keystore.p12
+    key-store-password: M4yo2019**
+    key-password: M4yo2019**
+    key-alias: microservices
 
 # +-----------------------------------------------------
 # |         SPRING CONFIG

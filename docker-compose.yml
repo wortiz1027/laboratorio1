@@ -36,13 +36,14 @@ services:
     hostname: microservice1
     restart: always
     ports:
-      - '8887:8081'
+      - 8887:8443
+      #- 8443
     networks:
       - web
     depends_on:
       - db
     environment:
-      - SERVICE_PORTS=8081
+      - SERVICE_PORTS=8443
       - SPRING_PROFILES_ACTIVE=qa
       - DATABASE_HOST=db
       - DATABASE_USER=wortiz
@@ -55,13 +56,14 @@ services:
     hostname: microservice2
     restart: always
     ports:
-      - '8888:8081'
+      - 8888:8443
+      #- 8443
     networks:
       - web
     depends_on:
       - db
     environment:
-      - SERVICE_PORTS=8081
+      - SERVICE_PORTS=8443
       - SPRING_PROFILES_ACTIVE=qa
       - DATABASE_HOST=db
       - DATABASE_USER=wortiz
@@ -78,6 +80,7 @@ services:
       - 443:443
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./nginx/ssl/certs:/etc/nginx/certs
     depends_on:
       - microservice1
       - microservice2
