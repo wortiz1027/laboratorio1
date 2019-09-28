@@ -79,7 +79,7 @@
 	  <repositories>
 	    <repository>
 	      <id>maven-public</id>
-	      <url>http://centos-cicd:8081/repository/maven-public/</url>
+	      <url>http://centos-cicd2:8081/repository/maven-public/</url>
 	    </repository>
 	  </repositories>
 	
