@@ -7,7 +7,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>co.com.laboratorio1</groupId>
     <artifactId>laboratorio1</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>laboratorio1</name>
     <description>
         Sprint boot app para validar pruebas de integracion y unitarias con jenkins docker y demas....
@@ -72,7 +72,31 @@
             </properties>
         </developer>
     </developers>
-
+	
+	<!-- 
+		Repositorios privados
+	 -->
+	  <repositories>
+	    <repository>
+	      <id>maven-public</id>
+	      <url>http://centos-cicd:8081/repository/maven-public/</url>
+	    </repository>
+	  </repositories>
+	
+	<!-- 
+		Configuracion repositorios de distribucion de artefactos
+	 -->
+	<distributionManagement>
+	    <snapshotRepository>
+	      <id>devops-snapshots</id>
+	      <url>http://centos-cicd2:8081/repository/devops-snapshots/</url>
+	    </snapshotRepository>
+	    <repository>
+	      <id>devops-releases</id>
+	      <url>http://centos-cicd2:8081/repository/devops-releases/</url>
+	    </repository>
+	</distributionManagement>
+	
     <!--
         Informacion del repositorio
      -->
@@ -88,7 +112,7 @@
      -->
     <ciManagement>
         <system>jenkins</system>
-        <url>http://localhost:8080/</url>
+        <url>http://centos-cicd2:8080/</url>
         <notifiers>
             <notifier>
                 <type>mail</type>
@@ -97,7 +121,7 @@
                 <sendOnSuccess>false</sendOnSuccess>
                 <sendOnWarning>false</sendOnWarning>
                 <configuration>
-                    <address>jenkins@localhost.com</address>
+                    <address>jenkins@localhost.com.co</address>
                 </configuration>
             </notifier>
         </notifiers>
