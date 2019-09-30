@@ -1,461 +1,541 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
                              http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>co.com.laboratorio1</groupId>
-    <artifactId>laboratorio1</artifactId>
-    <version>0.0.2-SNAPSHOT</version>
-    <name>laboratorio1</name>
-    <description>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>co.com.laboratorio1</groupId>
+	<artifactId>laboratorio1</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>laboratorio1</name>
+	<description>
         Sprint boot app para validar pruebas de integracion y unitarias con jenkins docker y demas....
     </description>
 
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.4.RELEASE</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.4.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
 
-    <!--
-		Definicion de propiedades del pom
-	 -->
-    <properties>
-        <java.version>1.8</java.version>
-        <swagger.version>2.9.2</swagger.version>
-        <javamelody.version>1.76.0</javamelody.version>
-        <skipTests>false</skipTests>
-        <skipITs>${skipTests}</skipITs>
-        <skipUTs>${skipTests}</skipUTs>
-    </properties>
-
-    <!--
-        Informacion de la organizacion
-     -->
-    <organization>
-        <name>Developer</name>
-        <url>http://willmanortiz.wordpress.com/</url>
-    </organization>
-
-    <!--
-        Informacion de la licencia
-     -->
-    <licenses>
-        <license>
-            <name>Apache License, Version 2.0</name>
-            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-            <comments>A business-friendly OSS license</comments>
-        </license>
-    </licenses>
-
-    <!--
-        Informacion del equipo de desarrollo :p
-     -->
-    <developers>
-        <developer>
-            <id>wortiz</id>
-            <name>Wilman Ortiz</name>
-            <url>http://willmanortiz.wordpress.com/</url>
-            <organization>Developer</organization>
-            <organizationUrl>http://willmanortiz.wordpress.com/</organizationUrl>
-            <roles>
-                <role>Arquitecto</role>
-                <role>Desarrollador</role>
-            </roles>
-            <timezone>America/Bogota</timezone>
-            <properties>
-                <picture>http://www.oorsprong.org/WebSamples.CountryInfo/Images/Colombia.jpg</picture>
-            </properties>
-        </developer>
-    </developers>
-	
 	<!-- 
-		Repositorios privados
-	 -->
-	  <repositories>
-	    <repository>
-	      <id>maven-public</id>
-	      <url>http://centos-cicd2:8081/repository/maven-public/</url>
-	    </repository>
-	  </repositories>
-	
+		Definicion de propiedades del pom 
+	-->
+	<properties>
+		<java.version>1.8</java.version>
+		<swagger.version>2.9.2</swagger.version>
+		<javamelody.version>1.76.0</javamelody.version>
+		<skipTests>false</skipTests>
+		<skipITs>${skipTests}</skipITs>
+		<skipUTs>${skipTests}</skipUTs>
+		<sonarUrl>${server.sonar.host.url}</sonarUrl>
+		<sonarLogin>${server.sonar.login}</sonarLogin>
+		<sonarOrganization>${server.sonar.organization}</sonarOrganization>
+		<sonarProjectKey>${server.sonar.projectKey}</sonarProjectKey>
+		<sonarProjectVersion>${server.sonar.projectVersion}</sonarProjectVersion>
+		<sonarJavaSource>${server.sonar.java.source}</sonarJavaSource>
+		<sonarTarget>${server.sonar.java.target}</sonarTarget>
+		<sonarEncoding>${server.sonar.sourceEncoding}</sonarEncoding>
+	</properties>
+
 	<!-- 
-		Configuracion repositorios de distribucion de artefactos
-	 -->
+		Informacion de la organizacion 
+	-->
+	<organization>
+		<name>developer.io</name>
+		<url>http://willmanortiz.wordpress.com/</url>
+	</organization>
+
+	<!-- 
+		Informacion de la licencia 
+	-->
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+			<comments>A business-friendly OSS license</comments>
+		</license>
+	</licenses>
+
+	<!-- 
+		Informacion del equipo de desarrollo :p 
+	-->
+	<developers>
+		<developer>
+			<id>wortiz</id>
+			<name>Wilman Ortiz</name>
+			<url>http://willmanortiz.wordpress.com/</url>
+			<organization>Developer</organization>
+			<organizationUrl>http://willmanortiz.wordpress.com/</organizationUrl>
+			<roles>
+				<role>Arquitecto</role>
+				<role>Desarrollador</role>
+			</roles>
+			<timezone>America/Bogota</timezone>
+			<properties>
+				<picture>http://www.oorsprong.org/WebSamples.CountryInfo/Images/Colombia.jpg</picture>
+			</properties>
+		</developer>
+	</developers>
+
+	<!-- 
+		Repositorios privados 
+	-->
+	<repositories>
+		<repository>
+			<id>maven-public</id>
+			<url>http://centos-cicd2:8081/repository/maven-public/</url>
+		</repository>
+	</repositories>
+
+	<!-- 
+		Configuracion repositorios de distribucion de artefactos 
+	-->
 	<distributionManagement>
-	    <snapshotRepository>
-	      <id>devops-snapshots</id>
-	      <url>http://centos-cicd2:8081/repository/devops-snapshots/</url>
-	    </snapshotRepository>
-	    <repository>
-	      <id>devops-releases</id>
-	      <url>http://centos-cicd2:8081/repository/devops-releases/</url>
-	    </repository>
+		<snapshotRepository>
+			<id>devops-snapshots</id>
+			<url>http://centos-cicd2:8081/repository/devops-snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>devops-releases</id>
+			<url>http://centos-cicd2:8081/repository/devops-releases/</url>
+		</repository>
 	</distributionManagement>
-	
-    <!--
-        Informacion del repositorio
-     -->
-    <scm>
-        <url>https://gitlab.com/wortiz1027/laboratorio1</url>
-        <connection>scm:git:git@gitlab.com:wortiz1027/laboratorio1.git</connection>
-        <developerConnection>scm:git:git@gitlab.com:wortiz1027/laboratorio1.git</developerConnection>
-        <tag>master</tag>
-    </scm>
 
-    <!--
-        Informacion del servidor de integracion continua
-     -->
-    <ciManagement>
-        <system>jenkins</system>
-        <url>http://centos-cicd2:8080/</url>
-        <notifiers>
-            <notifier>
-                <type>mail</type>
-                <sendOnError>true</sendOnError>
-                <sendOnFailure>true</sendOnFailure>
-                <sendOnSuccess>false</sendOnSuccess>
-                <sendOnWarning>false</sendOnWarning>
-                <configuration>
-                    <address>jenkins@localhost.com.co</address>
-                </configuration>
-            </notifier>
-        </notifiers>
-    </ciManagement>
+	<!-- 
+		Informacion del repositorio 
+	-->
+	<scm>
+		<url>https://gitlab.com/wortiz1027/laboratorio1</url>
+		<connection>scm:git:git@gitlab.com:wortiz1027/laboratorio1.git</connection>
+		<developerConnection>scm:git:git@gitlab.com:wortiz1027/laboratorio1.git</developerConnection>
+		<tag>master</tag>
+	</scm>
 
-    <!--
-        Informacion de administrador de incidencias
-     -->
-    <issueManagement>
-        <system>gitlab</system>
-        <url>https://gitlab.com/wortiz1027/laboratorio1/issues</url>
-    </issueManagement>
+	<!-- 
+		Informacion del servidor de integracion continua 
+	-->
+	<ciManagement>
+		<system>jenkins</system>
+		<url>http://centos-cicd2:8080/</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<sendOnError>true</sendOnError>
+				<sendOnFailure>true</sendOnFailure>
+				<sendOnSuccess>false</sendOnSuccess>
+				<sendOnWarning>false</sendOnWarning>
+				<configuration>
+					<address>jenkins@localhost.com.co</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
 
-    <!--
-        Definicion de perfiles maven
-     -->
-    <profiles>
-        <profile>
-            <id>test</id>
-            <properties>
-                <activatedProperties>test</activatedProperties>
-            </properties>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-        </profile>
-        <profile>
-            <id>qa</id>
-            <properties>
-                <activatedProperties>qa</activatedProperties>
-            </properties>
-        </profile>
-    </profiles>
+	<!-- 
+		Informacion de administrador de incidencias 
+	-->
+	<issueManagement>
+		<system>gitlab</system>
+		<url>https://gitlab.com/wortiz1027/laboratorio1/issues</url>
+	</issueManagement>
 
-    <dependencies>
-        <!--
-            Dependencies :: Spring boot para web
-         -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
+	<!-- 
+		Definicion de perfiles maven 
+	-->
+	<profiles>
+		<profile>
+			<id>test</id>
+			<properties>
+				<activatedProperties>test</activatedProperties>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<profile>
+			<id>qa</id>
+			<properties>
+				<activatedProperties>qa</activatedProperties>
+			</properties>
+		</profile>
+		<profile>
+			<id>sonar</id>
+			<properties>
+				<sonar.host.url>${sonarUrl}</sonar.host.url>
+				<sonar.projectKey>${sonarProjectKey}</sonar.projectKey>
+				<sonar.login>${sonarLogin}</sonar.login>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+					</plugin>
+					<plugin>
+						<groupId>org.sonarsource.scanner.maven</groupId>
+						<artifactId>sonar-maven-plugin</artifactId>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>coverage</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.jacoco</groupId>
+						<artifactId>jacoco-maven-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>prepare-agent</id>
+								<goals>
+									<goal>prepare-agent</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>report</id>
+								<goals>
+									<goal>report</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-devtools</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+	<dependencies>
+		<!-- 
+			Dependencies :: Spring boot para web 
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
 
-        <!--
-            Dependency :: Lombok para evitar el boilerplate en el source
-         -->
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-        <!--
-            Dependency :: Spring boot - Jpa para el orm
-         -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
+		<!-- 
+			Dependency :: Lombok para evitar el boilerplate en el source 
+		-->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
 
-        <!--
-            Dependency :: H2 - Database para pruebas unitarias de la capa de datos
-         -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<!-- 
+			Dependency :: Spring boot - Jpa para el orm 
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
 
-        <!--
-            Dependency :: MySQL - Database para pruebas de integracion de la capa de datos
-         -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
-        </dependency>
+		<!-- 
+			Dependency :: H2 - Database para pruebas unitarias de la capa de datos 
+		-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <!--
-            Dependencies :: JUnit | Mockito para pruebas unitarias y de integracion
-         -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<!-- 
+			Dependency :: MySQL - Database para pruebas de integracion de la capa de datos 
+		-->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.4.1</version><!--$NO-MVN-MAN-VER$-->
-            <scope>test</scope>
-        </dependency>
+		<!-- 
+			Dependencies :: JUnit | Mockito para pruebas unitarias y de integracion 
+		-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			<exclusions>
+				<exclusion>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>
 
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-api</artifactId>
-            <version>5.4.1</version><!--$NO-MVN-MAN-VER$-->
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-engine</artifactId>
+			<version>5.4.1</version><!--$NO-MVN-MAN-VER$ -->
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-launcher</artifactId>
-            <version>1.4.1</version><!--$NO-MVN-MAN-VER$-->
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.4.1</version><!--$NO-MVN-MAN-VER$ -->
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-commons</artifactId>
-            <version>1.4.1</version><!--$NO-MVN-MAN-VER$-->
-        </dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-launcher</artifactId>
+			<version>1.4.1</version><!--$NO-MVN-MAN-VER$ -->
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-junit-jupiter</artifactId>
-            <scope>test</scope>
-        </dependency>
+		<dependency>
+			<groupId>org.junit.platform</groupId>
+			<artifactId>junit-platform-commons</artifactId>
+			<version>1.4.1</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
 
-        <!--
-            Dependecy :: JavaMelody para monitoreo de la aplicacion
-         -->
-        <dependency>
-            <groupId>net.bull.javamelody</groupId>
-            <artifactId>javamelody-spring-boot-starter</artifactId>
-            <version>${javamelody.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-junit-jupiter</artifactId>
+			<scope>test</scope>
+		</dependency>
 
-        <!--
-            Dependecy :: Swagger para documentacion de la API Customer
-         -->
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
+		<!-- 
+			Dependecy :: JavaMelody para monitoreo de la aplicacion 
+		-->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-spring-boot-starter</artifactId>
+			<version>${javamelody.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swagger.version}</version>
-        </dependency>
-    </dependencies>
+		<!-- 
+			Dependecy :: Swagger para documentacion de la API Customer 
+		-->
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
 
-    <build>
-        <resources>
-            <!--
-                Para evitar que maven copie mal el keystore y genere error al iniciar la springboot app
-            -->
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/*.p12</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>false</filtering>
-                <includes>
-                    <include>**/*.p12</include>
-                </includes>
-            </resource>
-        </resources>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${swagger.version}</version>
+		</dependency>
+	</dependencies>
 
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
+	<build>
+		<resources>
+			<!-- 
+				Para evitar que maven copie mal el keystore y genere error al iniciar la springboot app 
+			-->
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+				<excludes>
+					<exclude>**/*.p12</exclude>
+				</excludes>
+			</resource>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>false</filtering>
+				<includes>
+					<include>**/*.p12</include>
+				</includes>
+			</resource>
+		</resources>
 
-            <!--
-                Plugin :: Maven para parametrizar el valor del profile de spring boot
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <configuration>
-                    <delimiters>
-                        <delimiter>@</delimiter>
-                    </delimiters>
-                    <useDefaultDelimiters>false</useDefaultDelimiters>
-                </configuration>
-            </plugin>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
 
-            <!--
-                Plugin :: Maven para ejecutar los unit tests
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/*IT.java</exclude>
-                    </excludes>
-                    <skipTests>${skipUTs}</skipTests>
-                </configuration>
-            </plugin>
+			<!-- 
+				Plugin :: Maven para parametrizar el valor del profile de spring boot 
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
 
-            <!--
-                Plugin :: Maven para ejecutar los integration tests
-            -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-                <configuration>
-                    <encoding>UTF-8</encoding>
-                    <skipTests>${skipTests}</skipTests>
-                    <skipITs>${skipITs}</skipITs>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>integration-test</goal>
-                            <goal>verify</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- 
+				Plugin :: Maven para ejecutar los unit tests 
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>**/*IT.java</exclude>
+					</excludes>
+					<skipTests>${skipUTs}</skipTests>
+				</configuration>
+			</plugin>
 
-            <!--
-                Plugin :: Maven para agregar un nuevo directorio para las test de integracion
-             -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>build-helper-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>add-integration-test-source-as-test-sources</id>
-                        <phase>generate-test-sources</phase>
-                        <goals>
-                            <goal>add-test-source</goal>
-                        </goals>
-                        <configuration>
-                            <sources>
-                                <source>src/it/java</source>
-                            </sources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+			<!-- 
+				Plugin :: Maven para ejecutar los integration tests 
+			-->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-failsafe-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<skipTests>${skipTests}</skipTests>
+					<skipITs>${skipITs}</skipITs>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>integration-test</goal>
+							<goal>verify</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-            <!--
-                Plugin :: Maven - jMeter para pruebas de cargas y estres
-                Tomado de :: https://www.linkedin.com/pulse/jmeter-maven-integration-some-facts-nayan-gaur
-             -->
-            <plugin>
-                <groupId>com.lazerycode.jmeter</groupId>
-                <artifactId>jmeter-maven-plugin</artifactId>
-                <version>2.9.0</version>
-                <executions>
-                    <execution>
-                        <id>jmeter-tests</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>jmeter</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <jMeterProcessJVMSettings>
-                        <xms>1024</xms>
-                        <xmx>1024</xmx>
-                        <arguments>
-                            <argument>-Xprof</argument>
-                            <argument>-Xfuture</argument>
-                        </arguments>
-                    </jMeterProcessJVMSettings>
-                    <testResultsTimestamp>false</testResultsTimestamp>
-                    <propertiesUser>
-                        <threadCount>${performancetest.threadCount}</threadCount>
-                        <users>${concurrency}</users>
-                        <rampUp>${rampup}</rampUp>
-                        <Loop>${loop}</Loop>
-                        <!-- application_endpoint>${application.base.url}</application_endpoint -->
-                    </propertiesUser>
-                    <propertiesJMeter>
-                        <jmeter.save.saveservice.thread_counts>true</jmeter.save.saveservice.thread_counts>
-                    </propertiesJMeter>
-                    <!--
-                            Nota: El plugin de Maven - jMeter por default busca en (src/test/jmeter) los *.jmx
-                            si queremos utilizar un directorio diferente debemos usar la siguiente opcion
-                     -->
-                    <!-- testFilesDirectory>${project.base.directory}/src/test/mydirectory/</testFilesDirectory -->
-                    <testFilesIncluded>
-                        <jMeterTestFile>${TestName}.jmx</jMeterTestFile>
-                    </testFilesIncluded>
+			<!-- 
+				Plugin :: Maven para agregar un nuevo directorio para las test de integracion 
+			-->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-integration-test-source-as-test-sources</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>src/it/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 
-                    <generateReports>false</generateReports>
-                    <resultsFileFormat>xml</resultsFileFormat>
-                    <testResultsTimestamp>false</testResultsTimestamp>
-                </configuration>
-            </plugin>
+			<!-- 
+				Plugin :: Maven - jMeter para pruebas de cargas y estres Tomado de :: https://www.linkedin.com/pulse/jmeter-maven-integration-some-facts-nayan-gaur 
+			-->
+			<plugin>
+				<groupId>com.lazerycode.jmeter</groupId>
+				<artifactId>jmeter-maven-plugin</artifactId>
+				<version>2.9.0</version>
+				<executions>
+					<execution>
+						<id>jmeter-tests</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jmeter</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<jMeterProcessJVMSettings>
+						<xms>1024</xms>
+						<xmx>1024</xmx>
+						<arguments>
+							<argument>-Xprof</argument>
+							<argument>-Xfuture</argument>
+						</arguments>
+					</jMeterProcessJVMSettings>
+					<testResultsTimestamp>false</testResultsTimestamp>
+					<propertiesUser>
+						<threadCount>${performancetest.threadCount}</threadCount>
+						<users>${concurrency}</users>
+						<rampUp>${rampup}</rampUp>
+						<Loop>${loop}</Loop>
+						<!-- application_endpoint>${application.base.url}</application_endpoint -->
+					</propertiesUser>
+					<propertiesJMeter>
+						<jmeter.save.saveservice.thread_counts>true</jmeter.save.saveservice.thread_counts>
+					</propertiesJMeter>
+					<!-- Nota: El plugin de Maven - jMeter por default busca en (src/test/jmeter) 
+						los *.jmx si queremos utilizar un directorio diferente debemos usar la siguiente 
+						opcion 
+					-->
+					<!-- testFilesDirectory>${project.base.directory}/src/test/mydirectory/</testFilesDirectory -->
+					<testFilesIncluded>
+						<jMeterTestFile>${TestName}.jmx</jMeterTestFile>
+					</testFilesIncluded>
 
-            <!--
-                 Plugin :: Maven - SonarQube para analisis de codigo
-              -->
-            <!-- plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.6.0.1398</version>
-                <executions>
-                   <execution>
-                      <phase>verify</phase>
-                      <goals>
-                         <goal>sonar</goal>
-                      </goals>
-                   </execution>
-                </executions>
-            </plugin-->
-        </plugins>
+					<generateReports>false</generateReports>
+					<resultsFileFormat>xml</resultsFileFormat>
+					<testResultsTimestamp>false</testResultsTimestamp>
+				</configuration>
+			</plugin>
+			
+			<!--
+				Plugin :: Maven - codehaus para leer archivos de propiedades 
+			 -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>1.0.0</version>
+				<executions>
+					<execution>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<files>
+						<file>${project.basedir}/src/main/resources/sonar/sonar.properties</file>
+					</files>
+				</configuration>
+			</plugin>
+		</plugins>
 
-        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.sonarsource.scanner.maven</groupId>
-                    <artifactId>sonar-maven-plugin</artifactId>
-                    <version>3.6.0.1398</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-
+		<pluginManagement>
+			<plugins>
+				<!--
+					Plugin :: Maven compiler 
+				 -->
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>3.8.1</version>
+				</plugin>
+				
+				<!--
+					Plugin :: Maven - Sonarqube 
+				 -->
+				<plugin>
+					<groupId>org.sonarsource.scanner.maven</groupId>
+					<artifactId>sonar-maven-plugin</artifactId>
+					<version>3.6.0.1398</version>
+				</plugin>
+				
+				<!-- 
+					Plugin :: Maven - Jacoco para cobertura de pruebas
+				 -->
+				<plugin>
+					<groupId>org.jacoco</groupId>
+					<artifactId>jacoco-maven-plugin</artifactId>
+					<version>0.8.4</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 </project>
