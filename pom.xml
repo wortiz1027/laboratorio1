@@ -27,8 +27,7 @@
 		<java.version>11</java.version>
 		<swagger.version>2.9.2</swagger.version>
 		<javamelody.version>1.79.0</javamelody.version>
-		<junitJupiter.version>5.5.2</junitJupiter.version>
-		<junitPlatform.version>1.5.2</junitPlatform.version>
+		<junit.jupiter.version>5.5.2</junit.jupiter.version>
 		<mavenCompiler.version>3.8.1</mavenCompiler.version>
 		<sonarScanner.version>3.6.1.1688</sonarScanner.version>
 		<jacoco.version>0.8.4</jacoco.version>
@@ -38,13 +37,21 @@
 		<skipTests>false</skipTests>
 		<skipITs>${skipTests}</skipITs>
 		<skipUTs>${skipTests}</skipUTs>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarUrl>${server.sonar.host.url}</sonarUrl>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarLogin>${server.sonar.login}</sonarLogin>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarOrganization>${server.sonar.organization}</sonarOrganization>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarProjectKey>${server.sonar.projectKey}</sonarProjectKey>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarProjectVersion>${server.sonar.projectVersion}</sonarProjectVersion>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarJavaSource>${server.sonar.java.source}</sonarJavaSource>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarTarget>${server.sonar.java.target}</sonarTarget>
+		<!--suppress UnresolvedMavenProperty -->
 		<sonarEncoding>${server.sonar.sourceEncoding}</sonarEncoding>
 	</properties>
 
@@ -286,31 +293,11 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>${junitJupiter.version}</version><!--$NO-MVN-MAN-VER$ -->
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-api</artifactId>
-			<version>${junitJupiter.version}</version><!--$NO-MVN-MAN-VER$ -->
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-launcher</artifactId>
-			<version>${junitPlatform.version}</version><!--$NO-MVN-MAN-VER$ -->
-			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.junit.platform</groupId>
-			<artifactId>junit-platform-commons</artifactId>
-			<version>${junitPlatform.version}</version><!--$NO-MVN-MAN-VER$ -->
-		</dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
 
 		<dependency>
 			<groupId>org.mockito</groupId>
