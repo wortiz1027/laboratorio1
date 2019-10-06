@@ -10,7 +10,8 @@
 # escape=\ (backslash)
 # Imagen base del Docker Registry para compilar nuestro microservicio
 # FROM java:8
-FROM openjdk:8-jdk-alpine
+# FROM openjdk:8-jdk-alpine
+FROM centos-cicd2:8082/leegreiner/11-jre-alpine
 
 # Parametrizacion del nombre del archivo que genera spring boot
 ARG JAR_FILE=laboratorio1-0.0.1-SNAPSHOT.jar
