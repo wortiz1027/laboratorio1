@@ -12,7 +12,7 @@ version: '3.7'
 services:
   db:
     container_name: server-mysql-lab
-    image: mysql
+    image: centos-cicd2:8082/mysql
     hostname: db
     environment:
       MYSQL_ROOT_PASSWORD: 'mysql'
@@ -31,7 +31,7 @@ services:
       timeout: 20s
       retries: 10
   microservice1:
-    image: customer-service:latest
+    image: centos-cicd2:8082/customer-service:latest
     container_name: customer-service-1
     hostname: microservice1
     restart: always
@@ -51,7 +51,7 @@ services:
       - DATABASE_NAME=online_market
       - DATABASE_PORT=3306
   microservice2:
-    image: customer-service:latest
+    image: centos-cicd2:8082/customer-service:latest
     container_name: customer-service-2
     hostname: microservice2
     restart: always
@@ -72,7 +72,7 @@ services:
       - DATABASE_PORT=3306
   nginx:
     container_name: server-nginx
-    image: nginx
+    image: centos-cicd2:8082/nginx
     hostname: server-nginx
     restart: always
     ports:
